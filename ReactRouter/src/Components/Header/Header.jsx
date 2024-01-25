@@ -1,10 +1,11 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import ThemeSwither from "../ThemeSwither/ThemeSwither";
 
 function Header() {
   return (
     <>
-      <nav class="navbar bg-dark sticky-top" data-bs-theme="dark">
+      <nav class="navbar bg-dark sticky-top">
         <div className="container">
           <div className=" d-flex gap-5 align-items-center">
             <div className="">
@@ -71,10 +72,12 @@ function Header() {
             </div>
             </div>
 
-          <div className="">
+          <div className="d-flex gap-2 justify-content-center align-items-center">
             <button type="button" class="btn btn-outline-primary">
               SignIn
             </button>
+
+            <ThemeSwither />
           </div>
         </div>
       </nav>
