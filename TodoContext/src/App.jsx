@@ -1,14 +1,14 @@
 import { useEffect, useId, useState } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import Todoform from "./Components/Todoform";
-import { TodoProvider,  UseTodo } from "./Context";
+import { TodoProvider, UseTodo } from "./Context";
 import AddTodo from "./Components/AddTodo";
 
 function App() {
   const [todos, setTodos] = useState([]);
 
   const addTodo = (todos) => {
-    setTodos((prev) => [{ id: Date.now(), ...todos}, ...prev ]);
+    setTodos((prev) => [{ id: Date.now(), ...todos }, ...prev]);
   };
 
   const updateTodo = (id, todo) => {
@@ -29,15 +29,10 @@ function App() {
   };
 
   useEffect(() => {
-
-      const value = JSON.parse(localStorage.getItem("todos"));
-  if (value && value.length > 0) {
-    setTodos(value);
-  }
-
-
-
-
+    const value = JSON.parse(localStorage.getItem("todos"));
+    if (value && value.length > 0) {
+      setTodos(value);
+    }
   }, []);
 
   useEffect(() => {
@@ -60,18 +55,20 @@ function App() {
               </div>
 
               {/* Todo Form */}
+              
               <div className=" col-12 col-sm-6 col-md-8 col-lg-6 ">
                 <AddTodo />
               </div>
               {/* Todo Items */}
 
               {todos.map((todo) => (
-
-              <div className=" col-12 col-sm-6 col-md-8 col-lg-6 col-xxl-10" key={todo.id}>
-                <Todoform  todo={todo}/>
-              </div>
-
-              )) }
+                <div
+                  className=" col-12 col-sm-6 col-md-8 col-lg-6 col-xxl-10"
+                  key={todo.id}
+                >
+                  <Todoform todo={todo} />
+                </div>
+              ))}
             </div>
           </div>
         </div>

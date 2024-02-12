@@ -7,7 +7,7 @@ export const Todotext = createContext({
         complete: false
     }],
 
-    addTodo: (toto) => {},
+    addTodo: (todo) => {},
     updateTodo: (id, todo) => {},
     deleteTodo: (id) => {},
     todoComplete: (id) => {},
