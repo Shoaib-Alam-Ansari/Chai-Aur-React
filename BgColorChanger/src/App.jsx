@@ -27,7 +27,9 @@ function BgChanger() {
           <button type="button" className="btn btn-light" onClick={() => setColor ("#fff") }>
             Light
           </button>
-
+          <button type="button" className="btn btn-light" onClick={() => setColor ("#fff") }>
+            Light
+          </button>
         </div>
       </div>
     </>
