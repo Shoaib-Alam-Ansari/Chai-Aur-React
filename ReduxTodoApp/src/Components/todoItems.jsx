@@ -1,23 +1,89 @@
-import { useSelector, useDispatch,  } from "react-redux";
-import { cheakTodo, deleteTodo, updateTodo  } from "../features/Todo/todoSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  toggleComplete,
+  deleteTodo,
+  editTodo,
+} from "../features/Todo/todoSlice";
 import { useState } from "react";
-function TodoItems({todo}) {
-  const [todoMsg, setTodoMsg] = useState([])
-  const dispatch = useDispatch()
+function TodoItems() {
+  const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
+  const [editId, setEditId] = useState(null);
+  const [editText, setEditText] = useState("");
+
+  console.log(todos);
+  const handleEdit = (id, text) => {
+    setEditId(id);
+    setEditText(text);
+  };
+
+  const handleSave = (id) => {
+    dispatch(editTodo({ id, text: editText }));
+    setEditId(null);
+    setEditText("");
+  };
+
+  const handleToggleComplete = (id) => {
+    dispatch(toggleComplete(id));
+  };
+
   return (
     <>
       {todos.map((todo) => (
-        <div className=" bg-danger-subtle d-flex justify-content-between py-2 px-3 rounded mt-2 gap-2">
-          <div className="col-9 col-sm-8 col-md-9 col-lg-9 col-xl-10 d-flex gap-2 justify-content-center align-items-center">
-            <input type="checkbox" className=" form-check-input" checked={todos.complete} onChange={() => dispatch(cheakTodo(todo.id))} />
-            <input type="text" className="form-control" value={todo.text} key={todo.id} />
-          </div>
-          <div className="d-flex gap-2">
-            <button className="btn bg-light" onClick={() => dispatch(updateTodo([...todos, todo.text]))}
 
-            >E</button>
-            <button className="btn bg-light" onClick={() => dispatch(deleteTodo(todo.id))}>D</button>
+        <div key={todo.id} className="mt-2">
+          <div className={`bg-danger-subtle d-flex p-2 align-items-center gap-2 rounded `}>
+            <input
+              type="checkbox"
+              disabled={editText}
+              className={`form-check-input`}
+              checked={todo.complete}
+              onChange={() => handleToggleComplete(todo.id)}
+            />
+
+            {editId === todo.id ? (
+              <input
+                type="text"
+                className={`form-control  ${
+                  editText ? " form-control " : " bg-danger-subtle "
+                }`}
+                value={editText}
+                onChange={(e) => setEditText(e.target.value)}
+              />
+            ) : (
+              <input
+                type="text"
+                readOnly={!editText}
+                className={`form-control  ${
+                  editText ? " form-control" : " bg-danger-subtle "
+                }  ${todo.complete ? "text-decoration-line-through" : ""}`}
+                value={todo.text}
+              />
+            )}
+            {editId === todo.id ? (
+              <button
+                className="btn bg-light"
+                onClick={() => handleSave(todo.id)}
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                className={`btn bg-light" ${
+                  todo.complete ? "disabled" : "btn bg-light"
+                }`}
+                onClick={() => handleEdit(todo.id, todo.text)}
+              >
+                Edit
+              </button>
+            )}
+
+            <button
+              className="btn bg-light"
+              onClick={() => dispatch(deleteTodo(todo.id))}
+            >
+              X
+            </button>
           </div>
         </div>
       ))}

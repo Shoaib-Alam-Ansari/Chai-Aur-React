@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo, cheakTodo } from "../features/Todo/todoSlice";
+import { addTodo } from "../features/Todo/todoSlice";
 
 function AddTodo() {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
 
-  const clickTodoHandler = (e) =>{
+  const clickTodoHandler = (e) => {
+    if (input !== "") {
       e.preventDefault();
       dispatch(addTodo(input));
-      setInput("")
-  }
+      setInput("");
+    }
+  };
 
   return (
     <>
@@ -22,7 +24,12 @@ function AddTodo() {
           placeholder="Enter a todo..."
           onChange={(e) => setInput(e.target.value)}
         />
-        <button class="btn btn-primary" type="button" id="button-addon2" onClick={clickTodoHandler}>
+        <button
+          class="btn btn-primary"
+          type="button"
+          id="button-addon2"
+          onClick={clickTodoHandler}
+        >
           Button
         </button>
       </div>

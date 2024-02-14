@@ -18,7 +18,7 @@ function App() {
               </div>
             {/* Add New Todo */}
 
-              <div className="col-12 col-sm-6 col-md-8 col-lg-6 colx-6 mb-4">
+              <div className="col-12 col-sm-6 col-md-8 col-lg-6 colx-6 mb-3">
                   <AddTodo/>
               </div>
               <div className="col-12 col-sm-6 col-md-8 col-lg-6 colx-6">
